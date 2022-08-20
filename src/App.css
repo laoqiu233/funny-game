@@ -1,10 +1,9 @@
-
 .app {
     width: 100vw;
     height: 100vh;
 
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
 }
@@ -13,15 +12,45 @@
     width: 35vw;
     height: 35vw;
 
-    display: flex;
-    flex-flow: row wrap;
+    overflow: hidden;
+
+    border-radius: 15px;
+    border-collapse: collapse;
+
+    box-shadow: 0 15px 30px #00000033;
+}
+
+.field tr {
+    height: 33.33%;
+}
+
+.field tr:last-child .cell {
+    border-bottom: none;
+}
+
+.field tr .cell:last-child {
+    border-right: none;
 }
 
 .cell {
-    outline: #e5e5e5 1px solid;
     width: 33.33%;
-    height: 33.33%;
     background-size: cover;
+    text-align: center;
+    
+    border-bottom: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+}
+
+.cell.empty-cell {
+    color: #FFFFFF00;
+    transition: all 0.1s ease-out;
+    background-color: #FFFFFF00;
+}
+
+.cell.empty-cell:hover {
+    color: #FFFFFFFF;
+    background-color: #55555533;
+    cursor: pointer;
 }
 
 .cell.o-cell {

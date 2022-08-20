@@ -36,18 +36,18 @@
     width: 33.33%;
     background-size: cover;
     text-align: center;
+    color: #FFFFFF00;
     
     border-bottom: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
 }
 
-.cell.empty-cell {
-    color: #FFFFFF00;
+.cell.clickable-cell {
     transition: all 0.1s ease-out;
     background-color: #FFFFFF00;
 }
 
-.cell.empty-cell:hover {
+.cell.clickable-cell:hover {
     color: #FFFFFFFF;
     background-color: #55555533;
     cursor: pointer;

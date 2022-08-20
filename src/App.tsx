@@ -1,67 +1,52 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { Field, CellState } from './Field';
 
-const SIZE = 3;
+function LocalGameField() {
+    const SIZE = 3;
 
-enum CellState {
-    Empty,
-    O,
-    X
-}
-
-type Field = {
-    cells: CellState[]
-}
-
-type CellProps = {
-    cellState: CellState,
-    index: number,
-    cellClick: (index: number) => void
-}
-
-function Cell({cellState, index, cellClick} : CellProps) {
-    const imagesToUse = {
-        [CellState.Empty]: <td className="cell empty-cell" onClick={() => cellClick(index)}>Click to place</td>,
-        [CellState.O]: <td className="cell o-cell"/>,
-        [CellState.X]: <td className="cell x-cell"/>
-    }
-
-    return imagesToUse[cellState];
-}
-
-function Field() {
-    const [cells, setCells] = useState(new Array(9).fill(CellState.Empty));
+    const [cells, setCells] = useState<CellState[]>(new Array(9).fill(CellState.Empty));
+    const [winner, setWinner] = useState<CellState>(CellState.Empty);
 
     function cellClick(index: number) {
-        const unfilledCells = cells.filter(x => x == CellState.Empty).length;
-        
-        const changeTo = (unfilledCells % 2 ? CellState.O : CellState.X);
+        const emptyCellsCount = cells.filter(v => v === CellState.Empty).length;
+        const cellToPut = (emptyCellsCount % 2 ? CellState.O : CellState.X);
 
-        setCells(currentCells => {
-            return [...currentCells.slice(0, index), changeTo, ...currentCells.slice(index+1)];
+        setCells(cells => {
+            return [...cells.slice(0, index), cellToPut, ...cells.slice(index+1)];
         });
-
-        // TODO:game win logic
     }
 
-    return (
-        <table className="field">
-            {
-                new Array(SIZE).fill(0).map((v, i) => (
-                    <tr key={i}>
-                        {cells.slice(i*SIZE, (i+1)*SIZE).map((v, j) => <Cell cellState={v} index={i*SIZE + j} cellClick={cellClick}/>)}
-                    </tr>
-                ))
+    useEffect(() => {
+        for (let i=0; i<SIZE; i++) {
+            for (let j=0; j<SIZE; j++) {
+                if (cells[i*SIZE + j] === CellState.Empty) continue;
+
+                for (let d=0; d<4; d++) {
+                    const [di, dj] = [d % 3 - 1, Math.floor(d / 3) - 1];
+                    
+                    const prevCellState = cells[(i-di)*SIZE + (j-dj)];
+                    const currCellState = cells[i*SIZE + j];
+                    const nextCellState = cells[(i+di)*SIZE + (j+dj)];
+
+                    if (prevCellState === currCellState && currCellState === nextCellState) {
+                        setWinner(currCellState);
+                        console.log(currCellState + ' wins!');
+                        return;
+                    }
+                }
             }
-        </table>
-    );
+        }
+    }, cells);
+
+    return <Field cells={cells} size={3} clickable={winner === CellState.Empty} cellClick={cellClick}/>
 }
 
 function App() {
     return (
         <div className="app">
             <h1>Mouse Game</h1>
-            <Field/>
+            <LocalGameField/>
         </div>
     )
 }

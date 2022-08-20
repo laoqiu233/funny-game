@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/funny-game/static/css/main.774a98df.css",
+    "main.js": "/funny-game/static/js/main.eab89b72.js",
+    "static/js/787.78e339ca.chunk.js": "/funny-game/static/js/787.78e339ca.chunk.js",
+    "static/media/rat.png": "/funny-game/static/media/rat.a8b71463ace661fc4f6d.png",
+    "static/media/rat-angry.png": "/funny-game/static/media/rat-angry.76f8a513d1574a2ae899.png",
+    "index.html": "/funny-game/index.html",
+    "main.774a98df.css.map": "/funny-game/static/css/main.774a98df.css.map",
+    "main.eab89b72.js.map": "/funny-game/static/js/main.eab89b72.js.map",
+    "787.78e339ca.chunk.js.map": "/funny-game/static/js/787.78e339ca.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.774a98df.css",
+    "static/js/main.eab89b72.js"
+  ]
+}

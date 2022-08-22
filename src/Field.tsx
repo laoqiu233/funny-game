@@ -38,7 +38,7 @@ function Field({cells, size, cellClick, clickable = false} : FieldProps) {
             {
                 new Array(size).fill(0).map((v, i) => (
                     <tr key={i}>
-                        {cells.slice(i*size, (i+1)*size).map((v, j) => <Cell key={i*size+j} cellState={v} index={i*size + j} cellClick={cellClick} clickable={clickable}/>)}
+                        {cells.slice(i*size, (i+1)*size).map((v, j) => <Cell key={i*size+j} cellState={v} index={i*size + j} cellClick={cellClick} clickable={v === CellState.Empty}/>)}
                     </tr>
                 ))
             }
@@ -47,4 +47,4 @@ function Field({cells, size, cellClick, clickable = false} : FieldProps) {
     );
 }
 
-export {Field, Cell, CellState, cellBGClassNames}
+export {Field, CellState, cellBGClassNames}

@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/funny-game/static/css/main.d41b27c1.css",
-    "main.js": "/funny-game/static/js/main.1ed4a01f.js",
+    "main.js": "/funny-game/static/js/main.89ebac7a.js",
     "static/js/787.78e339ca.chunk.js": "/funny-game/static/js/787.78e339ca.chunk.js",
     "static/media/rat.png": "/funny-game/static/media/rat.a8b71463ace661fc4f6d.png",
     "static/media/rat-angry.png": "/funny-game/static/media/rat-angry.76f8a513d1574a2ae899.png",
     "static/media/nobody.jpg": "/funny-game/static/media/nobody.eb37818452d35a523d6e.jpg",
     "index.html": "/funny-game/index.html",
     "main.d41b27c1.css.map": "/funny-game/static/css/main.d41b27c1.css.map",
-    "main.1ed4a01f.js.map": "/funny-game/static/js/main.1ed4a01f.js.map",
+    "main.89ebac7a.js.map": "/funny-game/static/js/main.89ebac7a.js.map",
     "787.78e339ca.chunk.js.map": "/funny-game/static/js/787.78e339ca.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d41b27c1.css",
-    "static/js/main.1ed4a01f.js"
+    "static/js/main.89ebac7a.js"
   ]
 }

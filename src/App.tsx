@@ -9,16 +9,10 @@ function LocalGameField() {
 
     const [cells, setCells] = useState<CellState[]>(new Array(9).fill(CellState.Empty));
     const [winner, setWinner] = useState<CellState>(CellState.Empty);
-
-    const emptyCells = cells.filter(v => v === CellState.Empty).length;
-
-    function resetField() {
-        setCells(new Array(9).fill(CellState.Empty));
-        setWinner(CellState.Empty);
-    }
+    const [showWinner, setShowWinner] = useState<boolean>(false);
 
     function cellClick(index: number) {
-        const cellToPut = (emptyCells % 2 ? CellState.O : CellState.X);
+        const cellToPut = (cells.filter(v => v === CellState.Empty).length % 2 ? CellState.O : CellState.X);
 
         setCells(cells => {
             return [...cells.slice(0, index), cellToPut, ...cells.slice(index+1)];
@@ -26,6 +20,12 @@ function LocalGameField() {
     }
 
     useEffect(() => {
+        const emptyCells = cells.filter(v => v === CellState.Empty).length;
+        if (emptyCells === 0) {
+            setShowWinner(true);
+            return;
+        }
+
         for (let i=0; i<SIZE; i++) {
             for (let j=0; j<SIZE; j++) {
                 if (cells[i*SIZE + j] === CellState.Empty) continue;
@@ -45,6 +45,7 @@ function LocalGameField() {
 
                     if (prevCellState === currCellState && currCellState === nextCellState) {
                         setWinner(currCellState);
+                        setShowWinner(true);
                         console.log(currCellState + ' wins!');
                         console.log((i-di)*SIZE + (j-dj), i*SIZE + j, (i+di)*SIZE + (j+dj), di, dj);
                         return;
@@ -61,8 +62,8 @@ function LocalGameField() {
             clickable={winner === CellState.Empty}
             cellClick={cellClick}
         />
-        <CSSTransition in={winner !== CellState.Empty || emptyCells === 0} classNames='appear' timeout={300} unmountOnExit>
-            <Modal text="Somebody wins!" buttonText="Restart" onClick={resetField}>
+        <CSSTransition in={showWinner} classNames='appear' timeout={300} unmountOnExit onExited={() => setWinner(CellState.Empty)}>
+            <Modal text="Somebody wins!" buttonText="Restart" onClick={() => {setShowWinner(false); setCells(new Array(9).fill(CellState.Empty));}}>
                 <h1>
                     <div 
                         className={winner === CellState.Empty ? 'nobody' : cellBGClassNames[winner]} 

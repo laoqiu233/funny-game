@@ -72,17 +72,16 @@ function LocalGameField() {
                 </h1>
             </Modal>
         </CSSTransition>
-    </div>
+    </div>;
 }
 
 function App() {
-
     return (
         <div className="app">
             <h1>Mouse Game</h1>
             <LocalGameField/>
         </div>
-    )
+    );
 }
 
 export default App;

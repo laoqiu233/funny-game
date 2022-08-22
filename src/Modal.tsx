@@ -7,10 +7,10 @@ type ModalProps = {
 }
 
 function Modal({children, buttonText, filled=false, onClick=()=>null}: ModalProps) {
-    return <div className={"modal" + (filled ? " filled" : "")}>
+    return <div className={'modal' + (filled ? ' filled' : '')}>
         {children}
         <button onClick={onClick}>{buttonText}</button>
-    </div>
+    </div>;
 }
 
 export default Modal;

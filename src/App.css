@@ -20,6 +20,13 @@
     box-shadow: 0 15px 30px #00000033;
 }
 
+@media (max-width: 1000px) {
+    .field {
+        width: 80vw;
+        height: 80vw;
+    }
+}
+
 .field tr {
     height: 33.33%;
 }
@@ -32,9 +39,11 @@
     border-right: none;
 }
 
+.field tr .cell {
+    width: 33.33%
+}
+
 .cell {
-    width: 33.33%;
-    background-size: cover;
     text-align: center;
     color: #FFFFFF00;
     
@@ -53,10 +62,56 @@
     cursor: pointer;
 }
 
-.cell.o-cell {
+.nobody {
+    background-size: cover;
+    background-image: url(./nobody.jpg);
+}
+
+.o-cell {
+    background-size: cover;
     background-image: url(./rat.png);
 }
 
-.cell.x-cell {
+.x-cell {
+    background-size: cover;
     background-image: url(./rat-angry.png);
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 14px 25px;
+
+    color: #fca311;
+    text-align: center;
+
+    border-radius: 15px;
+    background: #14213dAA;
+    box-shadow: 0 15px 30px #00000033;
+}
+
+.appear-enter {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.appear-enter-active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+
+    transition: opacity 300ms, transform 300ms;
+}
+
+.appear-exit {
+    opacity: 1;
+}
+
+.appear-exit-active {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+
+    transition: opacity 300ms, transform 300ms;
 }

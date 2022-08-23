@@ -8,7 +8,7 @@ type ModalProps = {
 
 function Modal({children, show, onExited}: ModalProps) {
     return (
-        <CSSTransition in={show} classNames='appear' timeout={300} unmountOnExit onExited={onExited}>
+        <CSSTransition in={show} classNames='appear' appear timeout={300} unmountOnExit onExited={onExited}>
             <div className='modal'>
                 {children}
             </div>

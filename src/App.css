@@ -83,22 +83,23 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
+    max-width: 300px;
     padding: 14px 25px;
 
     color: #fca311;
     text-align: center;
 
     border-radius: 15px;
-    background: #14213dAA;
-    box-shadow: 0 15px 30px #00000033;
+    background: #14213d;
+    box-shadow: 0 15px 30px #00000055;
 }
 
-.appear-enter {
+.appear-enter, .appear-appear {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.9);
 }
 
-.appear-enter-active {
+.appear-enter-active, .appear-appear-active {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
 

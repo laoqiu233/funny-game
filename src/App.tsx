@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
+import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Modal from './Modal';
 import { Field, CellState, cellBGClassNames } from './Field';
@@ -56,31 +56,54 @@ function LocalGameField() {
     }, cells);
 
     return <div style={{position: 'relative'}}>
+        <h1>Local Game</h1>
         <Field 
             cells={cells}
             size={3}
             clickable={winner === CellState.Empty}
             cellClick={cellClick}
         />
-        <CSSTransition in={showWinner} classNames='appear' timeout={300} unmountOnExit onExited={() => setWinner(CellState.Empty)}>
-            <Modal text="Somebody wins!" buttonText="Restart" onClick={() => {setShowWinner(false); setCells(new Array(9).fill(CellState.Empty));}}>
-                <h1>
-                    <div 
-                        className={winner === CellState.Empty ? 'nobody' : cellBGClassNames[winner]} 
-                        style={{margin: 'auto', width: '10em', height: '10em'}}/>
-                    wins!
-                </h1>
-            </Modal>
-        </CSSTransition>
+        
+        <Modal show={showWinner}>
+            <h1>
+                <div 
+                    className={winner === CellState.Empty ? 'nobody' : cellBGClassNames[winner]} 
+                    style={{margin: 'auto', width: '10em', height: '10em'}}/>
+                wins!
+            </h1>
+            <button onClick={() => {setShowWinner(false); setCells(new Array(9).fill(CellState.Empty));}}>Restart</button>
+            <br />
+            <Link to='/'><button>Menu</button></Link>
+        </Modal>
     </div>;
+}
+
+function Menu() {
+    return (
+        <>
+            <h1>Funny Rat Game</h1>
+            <Link to='/local'><button>Local Game</button></Link>
+            <button disabled>Online Game</button>
+        </>
+    );
 }
 
 function App() {
     return (
-        <div className="app">
-            <h1>Mouse Game</h1>
-            <LocalGameField/>
-        </div>
+        <HashRouter>
+            <div className="app">
+                <Routes>
+                    <Route index element={<Menu/>}/>
+                    <Route path='/local' element={<LocalGameField/>}/>
+                    <Route path='*' element={(
+                        <>
+                            <h1>404 rat found</h1>
+                            <Link to='/'><button>go back</button></Link>
+                        </>
+                    )}/>
+                </Routes>
+            </div>
+        </HashRouter>
     );
 }
 

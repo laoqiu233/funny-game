@@ -1,16 +1,19 @@
+import { CSSTransition } from 'react-transition-group';
+
 type ModalProps = {
-    children?: React.ReactNode | React.ReactNode[]
-    text: string,
-    buttonText: string,
-    filled?: boolean,
-    onClick?: () => void
+    children?: React.ReactNode | React.ReactNode[],
+    show: boolean,
+    onExited?: ()=>void
 }
 
-function Modal({children, buttonText, filled=false, onClick=()=>null}: ModalProps) {
-    return <div className={'modal' + (filled ? ' filled' : '')}>
-        {children}
-        <button onClick={onClick}>{buttonText}</button>
-    </div>;
+function Modal({children, show, onExited}: ModalProps) {
+    return (
+        <CSSTransition in={show} classNames='appear' timeout={300} unmountOnExit onExited={onExited}>
+            <div className='modal'>
+                {children}
+            </div>
+        </CSSTransition>
+    );
 }
 
 export default Modal;

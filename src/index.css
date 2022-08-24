@@ -19,6 +19,7 @@ code {
 }
 
 button {
+    font-size: 20px;
     min-width: 100px;
     max-width: 100%;
     padding: 10px;

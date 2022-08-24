@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { HashRouter, Routes, Route, Link } from 'react-router-dom';
+import { BsGithub } from 'react-icons/bs';
 import './App.css';
 import Modal from './Modal';
 import { Field, CellState, cellBGClassNames } from './Field';
@@ -20,12 +21,6 @@ function LocalGameField() {
     }
 
     useEffect(() => {
-        const emptyCells = cells.filter(v => v === CellState.Empty).length;
-        if (emptyCells === 0) {
-            setShowWinner(true);
-            return;
-        }
-
         for (let i=0; i<SIZE; i++) {
             for (let j=0; j<SIZE; j++) {
                 if (cells[i*SIZE + j] === CellState.Empty) continue;
@@ -53,6 +48,9 @@ function LocalGameField() {
                 }
             }
         }
+
+        const emptyCells = cells.filter(v => v === CellState.Empty).length;
+        if (emptyCells === 0) setShowWinner(true);
     }, cells);
 
     return <div style={{position: 'relative'}}>
@@ -72,7 +70,7 @@ function LocalGameField() {
             <h1>
                 <div 
                     className={winner === CellState.Empty ? 'nobody' : cellBGClassNames[winner]} 
-                    style={{margin: '0px auto 20px auto', width: '10em', height: '10em'}}/>
+                    style={{margin: '0px auto 20px auto', width: '200px', height: '200px'}}/>
                 wins!
             </h1>
             <button onClick={() => {setShowWinner(false); setCells(new Array(9).fill(CellState.Empty));}}>Restart</button>
@@ -82,11 +80,7 @@ function LocalGameField() {
     </div>;
 }
 
-function OnlineLobby({ setUsername } : {setUsername: (v:string) => void}) {
-    const [usernameTyped, setUsernameTyped] = useState('');
-
-    const usernameRegex = /^[a-zA-Z0-9]{3,}$/;
-
+function OnlineLobby() {
     return (
         <UserContext.Consumer>
             {
@@ -94,11 +88,11 @@ function OnlineLobby({ setUsername } : {setUsername: (v:string) => void}) {
                     <>
                         <h1>Online lobby | {user || 'Not logged in'}</h1>
                         <Modal show={user===''}>
-                            <h1>Please login first</h1>
-                            <input className='text-center' type="text" placeholder='Your name' value={usernameTyped} onChange={(e) => setUsernameTyped(e.target.value)} />
-                            <br />
-                            {usernameRegex.test(usernameTyped) || <p style={{marginTop: '-10px'}}>Your username should only consist of latin letters, numbers, and contain 3 or more characters</p>}
-                            <button onClick={() => setUsername}>Let&apos;s go</button>
+                            <p>You need to login first to play online with other players</p>
+                            <button>
+                                <BsGithub style={{verticalAlign: 'middle', fontSize: '1.5em', marginRight: '0.3em'}}/>
+                                <span style={{verticalAlign: 'middle'}}>Log in with GitHub</span>
+                            </button>
                             <Link to='/'><button>nah take me back</button></Link>
                         </Modal>
                     </>
@@ -130,7 +124,7 @@ function App() {
                     <Routes>
                         <Route index element={<Menu/>}/>
                         <Route path='/local' element={<LocalGameField/>}/>
-                        <Route path='/online' element={<OnlineLobby setUsername={setUsername}/>}></Route>
+                        <Route path='/online' element={<OnlineLobby/>}></Route>
                         <Route path='*' element={(
                             <>
                                 <h1>404 rat found</h1>
